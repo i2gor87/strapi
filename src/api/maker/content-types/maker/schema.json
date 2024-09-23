@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "makers",
+  "info": {
+    "singularName": "maker",
+    "pluralName": "makers",
+    "displayName": "maker"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name_en": {
+      "type": "string"
+    },
+    "name_kr": {
+      "type": "string"
+    }
+  }
+}
