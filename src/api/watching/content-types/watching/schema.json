@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "watchings",
+  "info": {
+    "singularName": "watching",
+    "pluralName": "watchings",
+    "displayName": "watching",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "model": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::model.model"
+    },
+    "year_from": {
+      "type": "integer"
+    },
+    "year_to": {
+      "type": "integer"
+    },
+    "mileage_from": {
+      "type": "biginteger"
+    },
+    "mileage_to": {
+      "type": "biginteger"
+    },
+    "price_from": {
+      "type": "biginteger"
+    },
+    "price_to": {
+      "type": "biginteger"
+    },
+    "meta": {
+      "type": "json"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "watchings"
+    },
+    "seens": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::seen.seen",
+      "mappedBy": "watchings"
+    }
+  }
+}

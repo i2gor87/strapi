@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "seens",
+  "info": {
+    "singularName": "seen",
+    "pluralName": "seens",
+    "displayName": "seen"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "watchings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::watching.watching",
+      "inversedBy": "seens"
+    },
+    "url": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    }
+  }
+}

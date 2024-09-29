@@ -362,6 +362,153 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiMakerMaker extends Schema.CollectionType {
+  collectionName: 'makers';
+  info: {
+    singularName: 'maker';
+    pluralName: 'makers';
+    displayName: 'maker';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name_en: Attribute.String;
+    name_kr: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::maker.maker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::maker.maker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiModelModel extends Schema.CollectionType {
+  collectionName: 'models';
+  info: {
+    singularName: 'model';
+    pluralName: 'models';
+    displayName: 'model';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name_en: Attribute.String;
+    name_kr: Attribute.String;
+    maker: Attribute.Relation<
+      'api::model.model',
+      'oneToOne',
+      'api::maker.maker'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::model.model',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::model.model',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSeenSeen extends Schema.CollectionType {
+  collectionName: 'seens';
+  info: {
+    singularName: 'seen';
+    pluralName: 'seens';
+    displayName: 'seen';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    watchings: Attribute.Relation<
+      'api::seen.seen',
+      'manyToMany',
+      'api::watching.watching'
+    >;
+    url: Attribute.String;
+    website: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::seen.seen', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::seen.seen', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWatchingWatching extends Schema.CollectionType {
+  collectionName: 'watchings';
+  info: {
+    singularName: 'watching';
+    pluralName: 'watchings';
+    displayName: 'watching';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    model: Attribute.Relation<
+      'api::watching.watching',
+      'oneToOne',
+      'api::model.model'
+    >;
+    year_from: Attribute.Integer;
+    year_to: Attribute.Integer;
+    mileage_from: Attribute.BigInteger;
+    mileage_to: Attribute.BigInteger;
+    price_from: Attribute.BigInteger;
+    price_to: Attribute.BigInteger;
+    meta: Attribute.JSON;
+    users_permissions_user: Attribute.Relation<
+      'api::watching.watching',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    seens: Attribute.Relation<
+      'api::watching.watching',
+      'manyToMany',
+      'api::seen.seen'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::watching.watching',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::watching.watching',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -724,6 +871,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    watchings: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::watching.watching'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -788,73 +940,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiMakerMaker extends Schema.CollectionType {
-  collectionName: 'makers';
-  info: {
-    singularName: 'maker';
-    pluralName: 'makers';
-    displayName: 'maker';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name_en: Attribute.String;
-    name_kr: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::maker.maker',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::maker.maker',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiModelModel extends Schema.CollectionType {
-  collectionName: 'models';
-  info: {
-    singularName: 'model';
-    pluralName: 'models';
-    displayName: 'model';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name_en: Attribute.String;
-    name_kr: Attribute.String;
-    maker: Attribute.Relation<
-      'api::model.model',
-      'oneToOne',
-      'api::maker.maker'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::model.model',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::model.model',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -865,6 +950,10 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::maker.maker': ApiMakerMaker;
+      'api::model.model': ApiModelModel;
+      'api::seen.seen': ApiSeenSeen;
+      'api::watching.watching': ApiWatchingWatching;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -873,8 +962,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::maker.maker': ApiMakerMaker;
-      'api::model.model': ApiModelModel;
     }
   }
 }
